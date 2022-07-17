@@ -1,7 +1,7 @@
 "use strict";
 
-import { productList } from "../../mocks/productList";
-module.exports.getProductsList = async (event) => {
+import { productList } from "../../mocks/productList.js";
+export const getProductsById = async (event) => {
   const { productId } = event.pathParameters;
   try {
     const product = productList.find((el) => el.id === productId);

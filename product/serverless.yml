@@ -22,7 +22,7 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   stage: dev
   region: eu-west-1
 
@@ -58,14 +58,14 @@ provider:
 
 functions:
   getProductsList:
-    handler: handlers/getProductsList/handler.getProductsList
+    handler: src/functions/getProductsList/handler.getProductsList
     events:
       - http:
           path: products
           method: get
           cors: true
   getProductsById:
-    handler: handler/getProductsById/handler.getProductsById
+    handler: src/functions/getProductsById/handler.getProductsById
     events:
       - http:
           path: products/{productId}
