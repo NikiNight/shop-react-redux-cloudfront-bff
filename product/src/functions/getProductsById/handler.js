@@ -1,29 +1,22 @@
 "use strict";
 
 import { productList } from "../../mocks/productList.js";
+import {
+  parseSuccessResponse,
+  parseErrorResponse,
+} from "../../utils/helpers/index.js";
+
 export const getProductsById = async (event) => {
   const { productId } = event.pathParameters;
   try {
-    const product = productList.find((el) => el.id === productId);
+    const product = productId && productList.find((el) => el.id === productId);
 
     if (product) {
-      return {
-        statusCode: 200,
-        headers: { "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify(product),
-      };
+      return parseSuccessResponse(product);
     } else {
-      return {
-        statusCode: 404,
-        headers: { "Access-Control-Allow-Origin": "*" },
-        message: "Product not found",
-      };
+      return parseErrorResponse(404);
     }
   } catch {
-    return {
-      statusCode: 500,
-      headers: { "Access-Control-Allow-Origin": "*" },
-      message: "Something went wrong",
-    };
+    return parseErrorResponse(500);
   }
 };
