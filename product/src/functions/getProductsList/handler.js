@@ -1,14 +1,17 @@
 "use strict";
 
-import { productList } from "../../mocks/productList.js";
+//import { productDataSource } from "../../dataSources/product.js";
 import {
   parseErrorResponse,
   parseSuccessResponse,
 } from "../../utils/helpers/index.js";
 
-export const getProductsList = async (event) => {
+export const getProductsList = (service) => async (event) => {
   try {
-    return parseSuccessResponse(productList);
+    await service
+      .getProducts()
+      .then((res) => parseSuccessResponse(res))
+      .catch((err) => parseErrorResponse(500));
   } catch {
     return parseErrorResponse(500);
   }
